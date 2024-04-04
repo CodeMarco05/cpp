@@ -1,0 +1,6 @@
+//for compiling a .cpp file with aditional files
+clang++ -o <outputname> <filenameToCompile> ....
+clang++ -o main main.cpp sqlite.o -lpthread -ldl
+
+//for creating a .o file from a .c file
+clang -c sqlite/sqlite3.c -o sqlite.o

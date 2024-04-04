@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(hw)
+
+add_executable(
+    hw
+    run.cpp
+    combinatorics.cpp)
+
+set(HEADERS
+    combinatorics.h)
+target_include_directories(hw PRIVATE ${HEADERS})
