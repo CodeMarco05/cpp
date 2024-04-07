@@ -5,6 +5,7 @@ project(bmp)
 add_executable(
     bmp
     src/main.cpp
+    src/bmp_editor.cpp
 )
 
 target_include_directories(bmp PRIVATE ${PROJECT_SOURCE_DIR}/headers)
