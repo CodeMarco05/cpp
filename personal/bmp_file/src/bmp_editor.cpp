@@ -1,8 +1,9 @@
 #include "../headers/bmp_editor.h"
 
-
-void BMPGenerator::generate(const std::string& filename, uint32_t width,
-                     uint32_t height, const std::vector<uint8_t>* pixelData) {
+namespace BMP {
+void Generator::generate(const std::string& filename, uint32_t width,
+                              uint32_t height,
+                              const std::vector<uint8_t>* pixelData) {
   // Calculate the size of the pixel data
   const uint32_t dataSize = width * height * 3;  // 3 bytes per pixel (RGB)
 
@@ -36,3 +37,4 @@ void BMPGenerator::generate(const std::string& filename, uint32_t width,
 
   std::cout << "BMP file generated successfully." << std::endl;
 }
+}  // namespace BMP
