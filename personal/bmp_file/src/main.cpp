@@ -1,19 +1,25 @@
 #include <iostream>
 #include <vector>
-#include "../headers/bmp_editor.h"
+#include "../headers/bmp.h"
 
 int main() {
     //Format for BMP bgr
     const uint32_t width = 16;
     const uint32_t height = 16;
 
-    std::vector<uint8_t> pixelData(width*height*3, 255);
-    pixelData[24+8*16*3] = 0;
-    pixelData[25+8*16*3] = 255;
-    pixelData[26+8*16*3] = 0;
+    std::vector<BMP::Pixel> pixelData(width*height, {0xFF, 0xFF, 0xFF});
     
+    pixelData[136].green = 0;
 
-    BMP::Generator::generate("../output/output2.bmp", width, height, &pixelData);
+    bool success = BMP::Generator::generate("../output/output.bmp", width, height, &pixelData);
+
+    
+    std::vector<uint8_t> data = BMP::Reader::readBytes("../output/output.bmp");
+
+    for(uint8_t u: data){
+        std::cout << std::hex << static_cast<int>(u) << '\n';
+    }
+
 
     return 0; 
 }

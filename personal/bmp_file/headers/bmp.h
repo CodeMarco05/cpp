@@ -26,9 +26,23 @@ struct BMPHeader {
 };
 #pragma pack(pop)
 
+struct Pixel {
+  uint8_t blue;
+  uint8_t green;
+  uint8_t red;
+
+  Pixel(uint8_t blue_val, uint8_t green_val, uint8_t red_val)
+      : blue(blue_val), green(green_val), red(red_val) {}
+};
+
 class Generator {
  public:
-  static void generate(const std::string& filename, uint32_t width,
-                       uint32_t height, const std::vector<uint8_t>* pixelData);
+  static bool generate(const std::string& filename, uint32_t width,
+                       uint32_t height, const std::vector<Pixel>* pixelData);
+};
+
+class Reader{
+  public:
+  static std::vector<uint8_t> readBytes(const std::string filename);
 };
 }  // namespace BMP
