@@ -60,4 +60,10 @@ std::vector<uint8_t> Reader::readBytes(const std::string fileName) {
   return data;
 }
 
+void Reader::completeRead(const std::string filename, std::vector<Pixel> *pixels, BMPHeader *header){
+  std::vector<uint8_t> data = readBytes(filename);
+
+  //TODO implement the header and the body 
+}
+
 }  // namespace BMP

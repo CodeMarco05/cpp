@@ -44,5 +44,6 @@ class Generator {
 class Reader{
   public:
   static std::vector<uint8_t> readBytes(const std::string filename);
+  static void completeRead(const std::string filename, std::vector<Pixel> *pixels, BMPHeader *header);
 };
 }  // namespace BMP

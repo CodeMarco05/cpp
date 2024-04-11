@@ -10,6 +10,7 @@ int main() {
     std::vector<BMP::Pixel> pixelData(width*height, {0xFF, 0xFF, 0xFF});
     
     pixelData[136].green = 0;
+    pixelData[136].blue = 0;
 
     bool success = BMP::Generator::generate("../output/output.bmp", width, height, &pixelData);
 
