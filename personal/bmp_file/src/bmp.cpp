@@ -4,10 +4,10 @@
 
 namespace BMP {
 
-bool Generator::generate(const std::string& filename, uint32_t width,
-                         uint32_t height, const std::vector<Pixel>* pixelData) {
+bool Generator::generate(const std::string &filename, uint32_t width,
+                         uint32_t height, const std::vector<Pixel> *pixelData) {
   // Calculate the size of the pixel data
-  const uint32_t dataSize = width * height * 3;  // 3 bytes per pixel (RGB)
+  const uint32_t dataSize = width * height * 3; // 3 bytes per pixel (RGB)
 
   // Create pixel data (RGB format)
   // std::vector<uint8_t> pixelData(dataSize, 255); // Initialize with white
@@ -29,10 +29,10 @@ bool Generator::generate(const std::string& filename, uint32_t width,
   }
 
   // Write the BMP header to the file
-  outFile.write(reinterpret_cast<const char*>(&header), sizeof(BMPHeader));
+  outFile.write(reinterpret_cast<const char *>(&header), sizeof(BMPHeader));
 
   // Write the pixel data to the file
-  outFile.write(reinterpret_cast<const char*>(pixelData->data()), dataSize);
+  outFile.write(reinterpret_cast<const char *>(pixelData->data()), dataSize);
 
   // Close the output file
   outFile.close();
@@ -52,7 +52,7 @@ std::vector<uint8_t> Reader::readBytes(const std::string fileName) {
 
   uint8_t byte;
 
-  while (file.read(reinterpret_cast<char*>(&byte), sizeof(byte))) {
+  while (file.read(reinterpret_cast<char *>(&byte), sizeof(byte))) {
     data.push_back(byte);
   }
   file.close();
@@ -60,10 +60,28 @@ std::vector<uint8_t> Reader::readBytes(const std::string fileName) {
   return data;
 }
 
-void Reader::completeRead(const std::string filename, std::vector<Pixel> *pixels, BMPHeader *header){
+void Reader::completeRead(const std::string filename,
+                          std::vector<Pixel> *pixels, BMPHeader *header) {
   std::vector<uint8_t> data = readBytes(filename);
 
-  //TODO implement the header and the body 
+  header->fileType[0] = (char)data[0];
+  header->fileType[1] = (char)data[1];
+  data.erase(data.begin(), data.begin() + 2);
+
+  std::vector<uint8_t> subvector(data.begin(), data.begin() + 4);
+  int num = calculateNumberFromBytes(subvector);
+
+  std::cout << num;
+
+  // iterate over the elements given and 2^0 if 1 2^1 if 1 and so on. add all
+  // together
 }
 
-}  // namespace BMP
+int Reader::calculateNumberFromBytes(std::vector<uint8_t> nums) {
+  int sum = 0;
+  for (int i = 0; i < nums.size(); ++i) {
+    sum += (nums[i] << (8 * i));
+  }
+  return sum;
+}
+} // namespace BMP
